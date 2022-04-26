@@ -3,24 +3,30 @@ from tkinter import ttk
 import tkinter
 from dao.vaccination_by_province_dao import *
 
+dose_dao = DaoFactory('dose')
+dose_method = dose_dao.create_dao()
+
 
 def dose_search():
-    result = get_query_dose_by_province(dose_search_var.get())
+    result = dose_method.get_query_by_province(dose_search_var.get())
     dose_search_result.set(result)
 
 
 def dose_update():
-    result = update_dose_by_province(dose_update_province.get(),
-                                     dose_update_over_60_1st_dose.get(),
-                                     dose_update_total_1st_dose.get(),
-                                     dose_update_total_2nd_dose.get(),
-                                     dose_update_total_3rd_dose.get())
+    data = {
+        "province": dose_update_province.get(),
+        "over_60_1st_dose": dose_update_over_60_1st_dose.get(),
+        "total_1st_dose": dose_update_total_1st_dose.get(),
+        "total_2nd_dose": dose_update_total_2nd_dose.get(),
+        "total_3rd_dose": dose_update_total_3rd_dose.get()
+    }
+    result = dose_method.update_by_province(data)
     dose_update_result.set(result)
     get_dose_data()
 
 
 def get_dose_data():
-    dose_data_table = get_query_dose()
+    dose_data_table = dose_method.get_query()
     for i in dose_tree.get_children():
         dose_tree.delete(i)
 
@@ -80,10 +86,10 @@ dose_search_var = tkinter.StringVar()
 dose_search_result = tkinter.StringVar()
 
 dose_update_province = tkinter.StringVar()
-dose_update_over_60_1st_dose = tkinter.StringVar()
-dose_update_total_1st_dose = tkinter.StringVar()
-dose_update_total_2nd_dose = tkinter.StringVar()
-dose_update_total_3rd_dose = tkinter.StringVar()
+dose_update_over_60_1st_dose = tkinter.IntVar()
+dose_update_total_1st_dose = tkinter.IntVar()
+dose_update_total_2nd_dose = tkinter.IntVar()
+dose_update_total_3rd_dose = tkinter.IntVar()
 dose_update_result = tkinter.StringVar()
 
 dose_tree.bind('<ButtonRelease-1>', dose_select)
@@ -130,26 +136,32 @@ Button(frame, text="Update", command=dose_update).grid(
 Label(frame, textvariable=dose_update_result, font=('Calibri', 14, 'bold')).grid(
     row=10, column=0, columnspan=6, pady=5)
 
+auth_dao = DaoFactory('auth')
+auth_method = auth_dao.create_dao()
+
 
 def auth_search():
-    result = get_query_auth_by_province(auth_search_var.get())
+    result = auth_method.get_query_by_province(auth_search_var.get())
     auth_search_result.set(result)
 
 
 def auth_update():
-    result = update_auth_by_province(auth_update_province.get(),
-                                     auth_update_total_dose.get(),
-                                     auth_update_AstraZeneca.get(),
-                                     auth_update_Sinovac.get(),
-                                     auth_update_Sinopharm.get(),
-                                     auth_update_Pfizer.get(),
-                                     auth_update_Johnson_Johnson.get())
+    data = {
+        "province": auth_update_province.get(),
+        "total_doses": auth_update_total_doses.get(),
+        "AstraZeneca": auth_update_AstraZeneca.get(),
+        "Sinovac": auth_update_Sinovac.get(),
+        "Sinopharm": auth_update_Sinopharm.get(),
+        "Pfizer": auth_update_Pfizer.get(),
+        "Johnson_Johnson": auth_update_Johnson_Johnson.get()
+    }
+    result = auth_method.update_by_province(data)
     auth_update_result.set(result)
     get_auth_data()
 
 
 def get_auth_data():
-    auth_data_table = get_query_auth()
+    auth_data_table = auth_method.get_query()
     for i in auth_tree.get_children():
         auth_tree.delete(i)
 
@@ -161,7 +173,7 @@ def auth_select(a):
     item = auth_tree.focus()
     value = auth_tree.item(item)["values"]
     auth_update_province.set(value[1])
-    auth_update_total_dose.set(value[2])
+    auth_update_total_doses.set(value[2])
     auth_update_AstraZeneca.set(value[3])
     auth_update_Sinovac.set(value[4])
     auth_update_Sinopharm.set(value[5])
@@ -184,12 +196,12 @@ auth_search_var = tkinter.StringVar()
 auth_search_result = tkinter.StringVar()
 
 auth_update_province = tkinter.StringVar()
-auth_update_total_dose = tkinter.StringVar()
-auth_update_AstraZeneca = tkinter.StringVar()
-auth_update_Sinovac = tkinter.StringVar()
-auth_update_Sinopharm = tkinter.StringVar()
-auth_update_Pfizer = tkinter.StringVar()
-auth_update_Johnson_Johnson = tkinter.StringVar()
+auth_update_total_doses = tkinter.IntVar()
+auth_update_AstraZeneca = tkinter.IntVar()
+auth_update_Sinovac = tkinter.IntVar()
+auth_update_Sinopharm = tkinter.IntVar()
+auth_update_Pfizer = tkinter.IntVar()
+auth_update_Johnson_Johnson = tkinter.IntVar()
 auth_update_result = tkinter.StringVar()
 
 auth_tree.bind('<ButtonRelease-1>', auth_select)
@@ -213,7 +225,7 @@ tkinter.Entry(frame, textvariable=auth_update_province, font=(
 
 Label(frame, text="new total dose vaccination", font=20).grid(
     row=18, column=0, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_total_dose, font=(
+tkinter.Entry(frame, textvariable=auth_update_total_doses, font=(
     'calibre', 10, 'normal')).grid(row=18, column=1, sticky=tkinter.W)
 
 Label(frame, text="new AstraZeneca vaccination", font=20).grid(
