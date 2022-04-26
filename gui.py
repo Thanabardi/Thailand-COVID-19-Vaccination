@@ -10,11 +10,12 @@ def dose_search():
 
 
 def dose_update():
-    update_dose_by_province(dose_update_province.get(),
-                            dose_update_over_60_1st_dose.get(),
-                            dose_update_total_1st_dose.get(),
-                            dose_update_total_2nd_dose.get(),
-                            dose_update_total_3rd_dose.get())
+    result = update_dose_by_province(dose_update_province.get(),
+                                     dose_update_over_60_1st_dose.get(),
+                                     dose_update_total_1st_dose.get(),
+                                     dose_update_total_2nd_dose.get(),
+                                     dose_update_total_3rd_dose.get())
+    dose_update_result.set(result)
     get_dose_data()
 
 
@@ -65,8 +66,8 @@ style.configure("mystyle.Treeview.Heading", font=(
 style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {
              'sticky': 'nswe'})])  # Remove the borders
 
-dose_cols = ['id', 'province', 'age over 60 1st dose',
-             'total 1st dose', 'total 2nd dose', 'total 3rd dose', 'date']
+dose_cols = ['id', 'Province', 'Age over 60 1st dose',
+             'Total 1st dose', 'Total 2nd dose', 'Total 3rd dose', 'Last updated']
 dose_tree = ttk.Treeview(frame, columns=dose_cols, style="mystyle.Treeview")
 
 dose_tree['show'] = 'headings'
@@ -83,6 +84,7 @@ dose_update_over_60_1st_dose = tkinter.StringVar()
 dose_update_total_1st_dose = tkinter.StringVar()
 dose_update_total_2nd_dose = tkinter.StringVar()
 dose_update_total_3rd_dose = tkinter.StringVar()
+dose_update_result = tkinter.StringVar()
 
 dose_tree.bind('<ButtonRelease-1>', dose_select)
 
@@ -95,7 +97,7 @@ tkinter.Entry(frame, textvariable=dose_search_var, font=(
     'calibre', 10, 'normal')).grid(row=3, column=0, columnspan=6)
 Button(frame, text="Search", command=dose_search).grid(
     row=4, column=0, columnspan=6, pady=10)
-Label(frame, textvariable=dose_search_result, font=30).grid(
+Label(frame, textvariable=dose_search_result, font=('Calibri', 14, 'bold')).grid(
     row=5, column=0, columnspan=6, pady=5)
 
 Label(frame, text="province", font=20).grid(
@@ -125,6 +127,8 @@ tkinter.Entry(frame, textvariable=dose_update_total_3rd_dose, font=(
 
 Button(frame, text="Update", command=dose_update).grid(
     row=9, column=0, columnspan=8)
+Label(frame, textvariable=dose_update_result, font=('Calibri', 14, 'bold')).grid(
+    row=10, column=0, columnspan=6, pady=5)
 
 
 def auth_search():
@@ -133,13 +137,14 @@ def auth_search():
 
 
 def auth_update():
-    update_auth_by_province(auth_update_province.get(),
-                            auth_update_total_dose.get(),
-                            auth_update_AstraZeneca.get(),
-                            auth_update_Sinovac.get(),
-                            auth_update_Sinopharm.get(),
-                            auth_update_Pfizer.get(),
-                            auth_update_Johnson_Johnson.get())
+    result = update_auth_by_province(auth_update_province.get(),
+                                     auth_update_total_dose.get(),
+                                     auth_update_AstraZeneca.get(),
+                                     auth_update_Sinovac.get(),
+                                     auth_update_Sinopharm.get(),
+                                     auth_update_Pfizer.get(),
+                                     auth_update_Johnson_Johnson.get())
+    auth_update_result.set(result)
     get_auth_data()
 
 
@@ -164,8 +169,8 @@ def auth_select(a):
     auth_update_Johnson_Johnson.set(value[7])
 
 
-auth_cols = ['id', 'province', 'total doses', 'AstraZeneca',
-             'Sinovac', 'Sinopharm', 'Pfizer', 'Johnson&Johnson', 'date']
+auth_cols = ['id', 'Province', 'Total doses', 'AstraZeneca',
+             'Sinovac', 'Sinopharm', 'Pfizer', 'Johnson&Johnson', 'Last updated']
 auth_tree = ttk.Treeview(frame, columns=auth_cols, style="mystyle.Treeview")
 
 auth_tree['show'] = 'headings'
@@ -185,59 +190,61 @@ auth_update_Sinovac = tkinter.StringVar()
 auth_update_Sinopharm = tkinter.StringVar()
 auth_update_Pfizer = tkinter.StringVar()
 auth_update_Johnson_Johnson = tkinter.StringVar()
+auth_update_result = tkinter.StringVar()
 
 auth_tree.bind('<ButtonRelease-1>', auth_select)
 
 Label(frame, text="Vaccination by authorizations", font=(
-    'Calibri', 20, 'bold')).grid(row=10, column=0, columnspan=6, pady=20)
-auth_tree.grid(row=11, column=0, columnspan=6)
+    'Calibri', 20, 'bold')).grid(row=11, column=0, columnspan=6, pady=20)
+auth_tree.grid(row=12, column=0, columnspan=6)
 Label(frame, text="province", font=20).grid(
-    row=12, column=0, columnspan=6, padx=10, pady=10)
+    row=13, column=0, columnspan=6, padx=10, pady=10)
 tkinter.Entry(frame, textvariable=auth_search_var, font=(
-    'calibre', 10, 'normal')).grid(row=13, column=0, columnspan=6)
+    'calibre', 10, 'normal')).grid(row=14, column=0, columnspan=6)
 Button(frame, text="Search", command=auth_search).grid(
-    row=14, column=0, columnspan=6, pady=10)
-Label(frame, textvariable=auth_search_result, font=30).grid(
-    row=15, column=0, columnspan=6, pady=5)
+    row=15, column=0, columnspan=6, pady=10)
+Label(frame, textvariable=auth_search_result, font=('Calibri', 14, 'bold')).grid(
+    row=16, column=0, columnspan=6, pady=5)
 
 Label(frame, text="province", font=20).grid(
-    row=16, column=2, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_province, font=(
-    'calibre', 10, 'normal')).grid(row=16, column=3, sticky=tkinter.W)
-
-Label(frame, text="new total dose vaccination", font=20).grid(
-    row=17, column=0, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_total_dose, font=(
-    'calibre', 10, 'normal')).grid(row=17, column=1, sticky=tkinter.W)
-
-Label(frame, text="new AstraZeneca vaccination", font=20).grid(
-    row=18, column=0, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_AstraZeneca, font=(
-    'calibre', 10, 'normal')).grid(row=18, column=1, sticky=tkinter.W)
-
-Label(frame, text="new Sinovac vaccination", font=20).grid(
     row=17, column=2, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_Sinovac, font=(
+tkinter.Entry(frame, textvariable=auth_update_province, font=(
     'calibre', 10, 'normal')).grid(row=17, column=3, sticky=tkinter.W)
 
-Label(frame, text="new Sinopharm vaccination", font=20).grid(
+Label(frame, text="new total dose vaccination", font=20).grid(
+    row=18, column=0, sticky=tkinter.E, padx=10, pady=10)
+tkinter.Entry(frame, textvariable=auth_update_total_dose, font=(
+    'calibre', 10, 'normal')).grid(row=18, column=1, sticky=tkinter.W)
+
+Label(frame, text="new AstraZeneca vaccination", font=20).grid(
+    row=19, column=0, sticky=tkinter.E, padx=10, pady=10)
+tkinter.Entry(frame, textvariable=auth_update_AstraZeneca, font=(
+    'calibre', 10, 'normal')).grid(row=19, column=1, sticky=tkinter.W)
+
+Label(frame, text="new Sinovac vaccination", font=20).grid(
     row=18, column=2, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_Sinopharm, font=(
+tkinter.Entry(frame, textvariable=auth_update_Sinovac, font=(
     'calibre', 10, 'normal')).grid(row=18, column=3, sticky=tkinter.W)
 
-Label(frame, text="new Pfizer vaccination", font=20).grid(
-    row=17, column=4, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_Pfizer, font=(
-    'calibre', 10, 'normal')).grid(row=17, column=5, sticky=tkinter.W)
+Label(frame, text="new Sinopharm vaccination", font=20).grid(
+    row=19, column=2, sticky=tkinter.E, padx=10, pady=10)
+tkinter.Entry(frame, textvariable=auth_update_Sinopharm, font=(
+    'calibre', 10, 'normal')).grid(row=19, column=3, sticky=tkinter.W)
 
-Label(frame, text="new Johnson&Johnson vaccination", font=20).grid(
+Label(frame, text="new Pfizer vaccination", font=20).grid(
     row=18, column=4, sticky=tkinter.E, padx=10, pady=10)
-tkinter.Entry(frame, textvariable=auth_update_Johnson_Johnson, font=(
+tkinter.Entry(frame, textvariable=auth_update_Pfizer, font=(
     'calibre', 10, 'normal')).grid(row=18, column=5, sticky=tkinter.W)
 
-Button(frame, text="Update", command=auth_update).grid(
-    row=19, column=0, columnspan=8)
+Label(frame, text="new Johnson&Johnson vaccination", font=20).grid(
+    row=19, column=4, sticky=tkinter.E, padx=10, pady=10)
+tkinter.Entry(frame, textvariable=auth_update_Johnson_Johnson, font=(
+    'calibre', 10, 'normal')).grid(row=19, column=5, sticky=tkinter.W)
 
+Button(frame, text="Update", command=auth_update).grid(
+    row=20, column=0, columnspan=8)
+Label(frame, textvariable=auth_update_result, font=('Calibri', 14, 'bold')).grid(
+    row=21, column=0, columnspan=6, pady=5)
 # root.geometry("1500x1000")
 
 
