@@ -2,8 +2,8 @@
 from sqlalchemy import Column, create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
 import pandas as pd
+from config import *
 
 Base = declarative_base()
 
@@ -38,7 +38,7 @@ class VaccByAuth(Base):
 
 if __name__ == "__main__":
     # create the database
-    engine = create_engine('sqlite:///vaccination_by_province.db')
+    engine = create_engine(URLI)
     Base.metadata.create_all(engine)
 
     # create the session
