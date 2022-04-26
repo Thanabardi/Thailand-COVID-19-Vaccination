@@ -79,7 +79,7 @@ class AuthDao(Dao):
         try:
             d = self._session.query(VaccByAuth).filter(func.lower(
                 VaccByAuth.province) == func.lower(province)).first()
-            return f"id: {d.id}, Province: {d.province}, Total doses: {d.total_doses}, AstraZeneca: {d.AstraZeneca}, Sinovac: {d.Sinovac}, Sinovac: {d.Sinopharm}, Pfizer: {d.Pfizer}, Johnson&Johnson: {d.Johnson_Johnson}, Last updated: {d.date.strftime('%d/%m/%Y, %H:%M:%S')}"
+            return f"id: {d.id}, Province: {d.province}, Total doses: {d.total_doses}, AstraZeneca: {d.AstraZeneca}, Sinovac: {d.Sinovac}, Sinopharm: {d.Sinopharm}, Pfizer: {d.Pfizer}, Johnson&Johnson: {d.Johnson_Johnson}, Last updated: {d.date.strftime('%d/%m/%Y, %H:%M:%S')}"
             # return format_data_auth(self, d)
         except:
             return "Province record Not Found"

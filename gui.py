@@ -103,7 +103,7 @@ tkinter.Entry(frame, textvariable=dose_search_var, font=(
     'calibre', 10, 'normal')).grid(row=3, column=0, columnspan=6)
 Button(frame, text="Search", command=dose_search).grid(
     row=4, column=0, columnspan=6, pady=10)
-Label(frame, textvariable=dose_search_result, font=('Calibri', 14, 'bold')).grid(
+Label(frame, textvariable=dose_search_result, font=('Calibri', 13, 'bold')).grid(
     row=5, column=0, columnspan=6, pady=5)
 
 Label(frame, text="province", font=20).grid(
@@ -133,7 +133,7 @@ tkinter.Entry(frame, textvariable=dose_update_total_3rd_dose, font=(
 
 Button(frame, text="Update", command=dose_update).grid(
     row=9, column=0, columnspan=8)
-Label(frame, textvariable=dose_update_result, font=('Calibri', 14, 'bold')).grid(
+Label(frame, textvariable=dose_update_result, font=('Calibri', 13, 'bold')).grid(
     row=10, column=0, columnspan=6, pady=5)
 
 auth_dao = DaoFactory('auth')
@@ -214,7 +214,7 @@ tkinter.Entry(frame, textvariable=auth_search_var, font=(
     'calibre', 10, 'normal')).grid(row=14, column=0, columnspan=6)
 Button(frame, text="Search", command=auth_search).grid(
     row=15, column=0, columnspan=6, pady=10)
-Label(frame, textvariable=auth_search_result, font=('Calibri', 14, 'bold')).grid(
+Label(frame, textvariable=auth_search_result, font=('Calibri', 13, 'bold')).grid(
     row=16, column=0, columnspan=6, pady=5)
 
 Label(frame, text="province", font=20).grid(
@@ -254,7 +254,7 @@ tkinter.Entry(frame, textvariable=auth_update_Johnson_Johnson, font=(
 
 Button(frame, text="Update", command=auth_update).grid(
     row=20, column=0, columnspan=8)
-Label(frame, textvariable=auth_update_result, font=('Calibri', 14, 'bold')).grid(
+Label(frame, textvariable=auth_update_result, font=('Calibri', 13, 'bold')).grid(
     row=21, column=0, columnspan=6, pady=5)
 # root.geometry("1500x1000")
 
