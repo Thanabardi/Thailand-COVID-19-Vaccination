@@ -23,6 +23,11 @@ vaccination by authorizations table
 Data comes from [หมอพร้อม](https://dashboard-vaccine.moph.go.th/dashboard.html)    
 Data transformed by [the-researcher-covid-data](https://github.com/porames/the-researcher-covid-data)    
 
+## Documents
+[Wiki Home](../../wiki/Home)    
+[Package Diagram](../../wiki/Package-Diagram)    
+[UML Class Diagram](../../wiki/UML-Class-Diagram)    
+
 ## Installing dependencies
     pip install -r requirement.txt
 
@@ -30,5 +35,5 @@ Data transformed by [the-researcher-covid-data](https://github.com/porames/the-r
     # Create vaccination_by_province database and load data from csv file
     python vaccination_by_province.py
 
-    # Open application
+    # Run application
     python gui.py
