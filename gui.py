@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter
+from config import *
 from dao.vaccination_by_province_dao import *
 
 dose_dao = DaoFactory('dose')
@@ -22,6 +23,7 @@ def dose_update():
     }
     result = dose_method.update_by_province(data)
     dose_update_result.set(result)
+    dose_search_result.set('')
     get_dose_data()
 
 
@@ -72,12 +74,10 @@ style.configure("mystyle.Treeview.Heading", font=(
 style.layout("mystyle.Treeview", [('mystyle.Treeview.treearea', {
              'sticky': 'nswe'})])  # Remove the borders
 
-dose_cols = ['id', 'Province', 'Age over 60 1st dose',
-             'Total 1st dose', 'Total 2nd dose', 'Total 3rd dose', 'Last updated']
-dose_tree = ttk.Treeview(frame, columns=dose_cols, style="mystyle.Treeview")
+dose_tree = ttk.Treeview(frame, columns=DOSE_COLS, style="mystyle.Treeview")
 
 dose_tree['show'] = 'headings'
-for i in dose_cols:
+for i in DOSE_COLS:
     dose_tree.column(column=f'{i}', width=160, minwidth=100, stretch=False)
     dose_tree.heading(column=f'{i}', text=f'{i}', anchor=CENTER)
 get_dose_data()
@@ -157,6 +157,7 @@ def auth_update():
     }
     result = auth_method.update_by_province(data)
     auth_update_result.set(result)
+    auth_search_result.set('')
     get_auth_data()
 
 
@@ -181,12 +182,10 @@ def auth_select(a):
     auth_update_Johnson_Johnson.set(value[7])
 
 
-auth_cols = ['id', 'Province', 'Total doses', 'AstraZeneca',
-             'Sinovac', 'Sinopharm', 'Pfizer', 'Johnson&Johnson', 'Last updated']
-auth_tree = ttk.Treeview(frame, columns=auth_cols, style="mystyle.Treeview")
+auth_tree = ttk.Treeview(frame, columns=AUTH_COLS, style="mystyle.Treeview")
 
 auth_tree['show'] = 'headings'
-for i in auth_cols:
+for i in AUTH_COLS:
     auth_tree.column(column=f'{i}', width=160, minwidth=100, stretch=False)
     auth_tree.heading(column=f'{i}', text=f'{i}', anchor=CENTER)
 get_auth_data()
