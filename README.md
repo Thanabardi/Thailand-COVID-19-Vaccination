@@ -27,7 +27,7 @@ Data transformed by [the-researcher-covid-data](https://github.com/porames/the-r
 
 [Wiki Home](../../wiki/Home)    
 [Package Diagram](../../wiki/Package-Diagram)    
-[UML Class Diagram](../../wiki/UML-Class-Diagram)
+[UML Class Diagram](../../wiki/UML-Class-Diagram)    
 [Web Service API](../../wiki/Web-Service-API)    
 
 ## Installing dependencies
